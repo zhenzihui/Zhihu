@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\QuestionRequest;
+use App\Repository\QuestionRepository;
 use App\Question;
 use App\Topic;
 use function GuzzleHttp\Promise\all;
 use Illuminate\Http\Request;
 use Auth;
-use Repository\QuestionRepository;
 
 class QuestionController extends Controller
 {
@@ -88,7 +87,12 @@ class QuestionController extends Controller
      */
     public function edit($id)
     {
-
+        $question=$this->questionRespository->getElementById($id);
+        if(Auth::user()->owns($question))
+        {
+            return view('question.edit',compact('question'));
+        }
+        return back();
     }
 
     /**

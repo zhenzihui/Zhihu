@@ -6,9 +6,10 @@
  * Time: 13:50
  */
 
-namespace Repository;
+namespace App\Repository;
 
 
+use App\Http\Requests\QuestionRequest;
 use App\Question;
 
 class QuestionRepository
@@ -21,5 +22,12 @@ class QuestionRepository
     public function getElementById($id)
     {
         return Question::find($id);
+    }
+
+    public function edit(QuestionRequest $request)
+    {
+        $input=$request->all();
+
+
     }
 }
